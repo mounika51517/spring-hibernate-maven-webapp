@@ -1,0 +1,45 @@
+Steps:
+-----
+
+1. create an initialization file(Say db.sql) for mysql to create database and table:
+
+CREATE DATABASE IF NOT EXISTS websystique;
+use websystique;
+CREATE TABLE EMPLOYEE( id INT NOT NULL auto_increment, name VARCHAR(50) NOT NULL, joining_date DATE NOT NULL, salary DOUBLE NOT NULL, ssn VARCHAR(30) NOT NULL UNIQUE, PRIMARY KEY (id) );
+
+2. create an empty directory db_data to get the mysql data copied
+
+
+3. docker-compose.yml
+   ------------------
+ 
+version: '3'
+services:
+  springsql:
+    image: mysql:5.7
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=Lync123*
+    volumes:
+    - "./db.sql:/docker-entrypoint-initdb.d/db.sql"           /* the files in /docker-entrypoint-initdb.d/ location will be triggered when mysql container is created
+    - "./db_data:/var/lib/mysql/"
+  spring3:
+    image: spring:v3
+    depends_on:
+    - springsql
+    build:                            /* builds the image using the mentioned docker file to create the container/service spring3
+      context: ./                    /* location of docker file
+      dockerfile: Dockerfile          /* available in this git repository
+    ports:
+    - "8080:8080"
+    environment:
+    - jdbc.driverClassName=com.mysql.jdbc.Driver
+    - jdbc.url=jdbc:mysql://springsql:3306/websystique
+    - jdbc.username=root
+    - jdbc.password=Lync123*
+    - hibernate.dialect=org.hibernate.dialect.MySQLDialect
+    - hibernate.show_sql=true
+    - hibernate.format_sql=true
+    
+    
