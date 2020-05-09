@@ -11,7 +11,10 @@ pipeline{
         }
         stage('docker compose'){
             steps{
-                sh script: 'docker-compose up -d'
+                script{
+                dpath = $path:/usr/local/bin/ 
+                sh script: "${dpath}/docker-compose up -d"
+                }
             }
         }
     }
