@@ -12,9 +12,15 @@ pipeline{
                 }
             }
         }
-        stage('docker compose'){
+        stage('docker ssh'){
             steps{
-                sh script: 'docker-compose up -d'
+                sshagent (credentials: ['deploy-dev']) {
+                   sh "
+                   ssh -o StrictHostKeyChecking=no centos@34.227.79.221
+                   ssh  'docker-compose down'
+                   ssh  'docker-compose up -d'
+                   "  
+              }  
             }
         }
     }
