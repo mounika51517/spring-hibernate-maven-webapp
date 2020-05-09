@@ -1,0 +1,17 @@
+pipeline{
+    stages{
+        stage('code package'){
+            steps{
+                tools {
+                 maven 'maven3'
+                }
+                sh script: 'mvn clean package'
+            }
+        }
+        stage('docker compose'){
+            steps{
+                sh script: 'docker-compose up -d'
+            }
+        }
+    }
+}
