@@ -1,12 +1,10 @@
 pipeline{
     agent any
-    tools {
-                 maven 'maven3'
-    }
     stages{
         stage('code package'){
             steps{
-                sh script: 'mvn clean package'
+                mvnpath = tool name: 'maven3', type: 'maven'
+                sh script: "${mvnpath}/mvn clean package"
             }
         }
         stage('docker compose'){
