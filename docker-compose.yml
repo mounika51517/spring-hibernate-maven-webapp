@@ -8,7 +8,7 @@ services:
     - MYSQL_ROOT_PASSWORD=Lync123*
     volumes:
     - "./db.sql:/docker-entrypoint-initdb.d/db.sql"
-    - "./db_data:/var/lib/mysql/"
+    - "/opt/db_data:/var/lib/mysql/"
   spring3:
     image: spring:v3
     depends_on:
