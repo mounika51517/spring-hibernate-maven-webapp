@@ -1,11 +1,14 @@
+Dockerfile:
+------------
 # here version 7 is important here...tried with version 8 and latest tags but did not work
 FROM tomcat:7
 # mention mysql container name in jdbc.url...which is "springsql" in this case
 ENV jdbc.driverClassName=com.mysql.jdbc.Driver jdbc.url=jdbc:mysql://springsql:3306/websystique jdbc.username=root jdbc.password=Lync123*
 ENV hibernate.dialect=org.hibernate.dialect.MySQLDialect hibernate.show_sql=true hibernate.format_sql=true
 ADD target/SpringHibernateExample-2.4.9.war /usr/local/tomcat/webapps/
-
+------------------------------------------
 Steps:
+------
 1. change the jdbc.user to mysql container name in application.properties
 2. mvn clean package
 3. run mysql container
@@ -14,8 +17,7 @@ docker run -dt --name springsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Lync123* -e 
     docker exec -it springsql bash
     mysql -u root -pLync123*
     use websystique;
-    c
-
+    CREATE TABLE EMPLOYEE( id INT NOT NULL auto_increment, name VARCHAR(50) NOT NULL, joining_date DATE NOT NULL, salary DOUBLE NOT NULL, ssn VARCHAR(30) NOT NULL UNIQUE, PRIMARY KEY (id) );
 5. create above docker file and build it(docker build -t spring:v2 .)
 6. Run tomcat container using the build image and link to mysql container
    docker run -dt --link springsql:mysql -p 8080:8080 --name spring2 spring:v2
