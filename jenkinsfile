@@ -18,7 +18,7 @@ pipeline{
             def downvar = 'docker-compose down'
             def upvar = 'docker-compose up -d'
                 sshagent (credentials: ['deploy-dev']) {
-                   sh "scp -o StrictHostKeyChecking=no db.sql docker-compose.yml centos@34.227.79.221"
+                   sh "scp -o StrictHostKeyChecking=no db.sql docker-compose.yml centos@34.227.79.221:/home/centos"
                    sh "ssh centos@34.227.79.221 ${downvar}"
                    sh "ssh centos@34.227.79.221 ${upvar}"
               }  
