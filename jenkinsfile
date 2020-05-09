@@ -12,7 +12,7 @@ pipeline{
         stage('docker compose'){
             steps{
                 environment{
-                PATH = $PATH:/usr/local/bin/ 
+                PATH = "$PATH:/usr/local/bin/"
                 sh script: 'docker-compose up -d'
                 }
             }
