@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+                PATH = "$PATH:/usr/local/bin/"
+    }
     stages{
         stage('code package'){
             steps{
@@ -11,10 +14,7 @@ pipeline{
         }
         stage('docker compose'){
             steps{
-                environment{
-                PATH = "$PATH:/usr/local/bin/"
                 sh script: 'docker-compose up -d'
-                }
             }
         }
     }
