@@ -5,7 +5,7 @@ pipeline{
             steps{
                  script{
                 def mvnpath = tool name: 'maven3', type: 'maven'
-                sh script: "${mvnpath}/mvn clean package"
+                sh script: "${mvnpath}/bin/mvn clean package"
                 }
             }
         }
