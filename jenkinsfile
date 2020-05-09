@@ -14,13 +14,14 @@ pipeline{
         }
         stage('docker ssh'){
             steps{
+            script{
+            def downvar = 'docker-compose down'
+            def upvar = 'docker-compose up -d'
                 sshagent (credentials: ['deploy-dev']) {
-                   sh '
-                   ssh -o StrictHostKeyChecking=no centos@34.227.79.221
-                   ssh  'docker-compose down'
-                   ssh  'docker-compose up -d'
-                   '
+                   sh "ssh StrictHostKeyChecking=no centos@34.227.79.221 ${downvar}"
+                   sh "ssh StrictHostKeyChecking=no centos@34.227.79.221 ${upvar}"
               }  
+              }
             }
         }
     }
