@@ -3,8 +3,10 @@ pipeline{
     stages{
         stage('code package'){
             steps{
+                 script{
                 def mvnpath = tool name: 'maven3', type: 'maven'
                 sh script: "${mvnpath}/mvn clean package"
+                }
             }
         }
         stage('docker compose'){
