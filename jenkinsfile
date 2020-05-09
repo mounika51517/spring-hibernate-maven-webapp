@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('code package'){
             steps{
-                mvnpath = tool name: 'maven3', type: 'maven'
+                def mvnpath = tool name: 'maven3', type: 'maven'
                 sh script: "${mvnpath}/mvn clean package"
             }
         }
