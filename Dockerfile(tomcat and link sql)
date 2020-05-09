@@ -1,6 +1,6 @@
 Dockerfile:
 ------------
-# here version 7 is important here...tried with version 8 and latest tags but did not work
+# here version 7 is important here...tried with version 8 and latest tags but did not work...but also worked with version not mentinoed. not sure of the reason
 FROM tomcat:7
 # mention mysql container name in jdbc.url...which is "springsql" in this case
 ENV jdbc.driverClassName=com.mysql.jdbc.Driver jdbc.url=jdbc:mysql://springsql:3306/websystique jdbc.username=root jdbc.password=Lync123*
