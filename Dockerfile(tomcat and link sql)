@@ -1,0 +1,6 @@
+# here version 7 is important here...tried with version 8 and latest tags but did not work
+FROM tomcat:7
+# mention mysql container name in jdbc.url...which is "springsql" in this case
+ENV jdbc.driverClassName=com.mysql.jdbc.Driver jdbc.url=jdbc:mysql://springsql:3306/websystique jdbc.username=root jdbc.password=Lync123*
+ENV hibernate.dialect=org.hibernate.dialect.MySQLDialect hibernate.show_sql=true hibernate.format_sql=true
+ADD target/SpringHibernateExample-2.4.9.war /usr/local/tomcat/webapps/
