@@ -18,9 +18,9 @@ pipeline{
             def downvar = 'docker-compose down'
             def upvar = 'docker-compose up -d'
                 sshagent(['node']) {
-                   sh "scp -o StrictHostKeyChecking=no db.sql Dockerfile docker-compose.yml target/SpringHibernateExample-2.4.9.war centos@54.159.118.116:/home/centos"
-                   sh "ssh centos@54.159.118.116 ${downvar}"
-                   sh "ssh centos@54.159.118.116 ${upvar}"
+                   sh "scp -o StrictHostKeyChecking=no db.sql Dockerfile docker-compose.yml target/SpringHibernateExample-2.4.9.war centos@54.92.129.137:/home/centos"
+                   sh "ssh centos@54.92.129.137 ${downvar}"
+                   sh "ssh centos@54.92.129.137 ${upvar}"
               }  
               }
             }
