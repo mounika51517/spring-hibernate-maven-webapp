@@ -1,0 +1,48 @@
+---
+- hosts: web
+  become: true
+  handlers:
+  - name: Restart mysql
+    service:
+      name: mysqld
+      state: restarted
+  tasks:
+  - name: To get mysql url
+    get_url:
+      url: http://download943.mediafire.com/gfx2tpt7gvqg/tjjth0oupxjuara/mysql-community-release-el7-5.noarch.rpm
+      dest: /home/centos
+  - name: to intall mysql rpm
+    yum:
+      name: mysql-community-release-el7-5.noarch.rpm
+      state: present
+  - name: to install mysql-server
+    yum:
+      name:
+      - epel-release
+      - MySQL-python
+      - mysql-server
+      state: latest
+  - name: to start msyql service
+    service:
+      name: mysqld
+      state: started
+  - name: to update root password
+    mysql_user:
+      name: root
+      host: node1
+      password: Lync123*
+      login_user: root
+      check_implicit_admin: yes
+      priv: "*.*:ALL,GRANT"
+  - name: create a new database called websystique
+    mysql_db:
+      name: websystique
+      state: present
+      login_user: root
+      login_password: Lync123*
+  - name: copy sql file
+    copy:
+      src: db.sql
+      dest: /db.sql
+  - name: create a table called EMPLOYEE
+    shell: mysql -u root -pLync123* websystique < /home/centos/db.sql
